@@ -30,47 +30,78 @@ public class UserController {
     public String showAll(Model model){
         List<User> users = userService.listOfAllUser();
         model.addAttribute("users", users);
-        return "showAll";
+        return "table/showAll";
     }
 
 
     @GetMapping(path = "/findById")
     public String ShowFindIdForm() {
-        return "filterFormId";
+        return "forms/filterFormId";
     }
 
     @PostMapping(path = "/findById")
-    public String createUser(@RequestParam("id") Long id, Model model) {
+    public String findUserId(@RequestParam("id") Long id, Model model) {
         Optional<User> userOptional = userService.findUserById(id);
         if (userOptional.isPresent()){
             User user = userOptional.get();
             model.addAttribute("user",user);
         }
-        return "userFoundID";
+        return "table/userFoundID";
+    }
+    @GetMapping(path = "/findByName")
+    public String ShowFindNameForm() {
+        return "forms/filterByName";
     }
 
+    @PostMapping(path = "/findByName")
+    public String findUserName(@RequestParam("name") String name, Model model) {
+        User user = userService.findUserByName(name);
+        model.addAttribute("user", user);
+        return "table/userFoundName";
+    }
+
+    @GetMapping(path = "/findByEmail")
+    public String ShowFindEmailForm() {
+        return "forms/filterByEmail";
+    }
+
+    @PostMapping(path = "/findByEmail")
+    public String findUserEmail(@RequestParam("email") String email, Model model) {
+        User user = userService.findByEmail(email);
+        model.addAttribute("user", user);
+        System.out.println(user);
+        return "table/userFoundName";
+    }
+    @GetMapping(path = "/deleteById")
+    public String ShowFindIdFormDelete() {
+        return "forms/deleteFormId";
+    }
+
+    @PostMapping(path = "/deleteById")
+    public String DeleteUserId(@RequestParam("id") Long id, Model model) {
+        userService.deleteById(id);
+        return "/home";
+    }
 
     @GetMapping(path = "/create_user")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
-        return "register";
+        return "forms/register";
     }
     @PostMapping(path = "/create_user")
     public String createUser(@ModelAttribute User user) {
         userService.createUser(user.getName(), user.getEmail());
-        return "redirect:/done";
+        return "generic/done";
     }
 
     @GetMapping(path = "done")
     public String done(){
-        return "done";
+        return "generic/done";
     }
     @RequestMapping(path = "deleteAll", method = {RequestMethod.GET, RequestMethod.POST})
     public String removeAll() {
         userService.removeAll();
-        return "redirect:/done";
+        return "generic/done";
     }
-
-
 
 }

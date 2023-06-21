@@ -23,8 +23,31 @@ public class UserService {
         userRepository.deleteAll();
     }
 
+
+    public void deleteById(Long id){
+        userRepository.deleteById(id);
+    }
+
     public Optional<User> findUserById(Long id){
         return userRepository.findById(id);
+    }
+
+    public User findUserByName(String name) {
+        for (User user:listOfAllUser()){
+            if (user.getName().equals(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User findByEmail(String name){
+        for (User user:listOfAllUser()){
+            if (user.getEmail().equals(name)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     public void createUser(String name, String email) {
