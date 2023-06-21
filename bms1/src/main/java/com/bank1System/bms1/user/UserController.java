@@ -1,9 +1,7 @@
 package com.bank1System.bms1.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping(path = "api/v2/bms")
 public class UserController {
 
     private final UserService userService;
@@ -43,9 +40,13 @@ public class UserController {
     }
 
     @PostMapping(path = "/findById")
-    public String createUser(@RequestParam("id") Long id) {
-        userService.findUserById(id);
-        return "redirect:/userFoundID";
+    public String createUser(@RequestParam("id") Long id, Model model) {
+        Optional<User> userOptional = userService.findUserById(id);
+        if (userOptional.isPresent()){
+            User user = userOptional.get();
+            model.addAttribute("user",user);
+        }
+        return "userFoundID";
     }
 
 
@@ -67,14 +68,9 @@ public class UserController {
     @RequestMapping(path = "deleteAll", method = {RequestMethod.GET, RequestMethod.POST})
     public String removeAll() {
         userService.removeAll();
-        return "home";
+        return "redirect:/done";
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception ex) {
-        String errorMessage = "An error occurred. Please try again later.";
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return ResponseEntity.status(status).body(errorMessage);
-    }
+
 
 }
