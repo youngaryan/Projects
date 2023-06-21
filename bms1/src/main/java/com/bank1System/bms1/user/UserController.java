@@ -1,6 +1,7 @@
 package com.bank1System.bms1.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -37,13 +38,16 @@ public class UserController {
 
 
     @GetMapping(path = "/findById")
-    public Optional<User> findId(@RequestParam Long id){
-        return userService.findUserById(id);
+    public String ShowFindIdForm() {
+        return "filterFormId";
     }
-    @GetMapping(path = "/findByIdPage")
-    public String findIdPage(){
-        return "foundId";
+
+    @PostMapping(path = "/findById")
+    public String createUser(@RequestParam("id") Long id) {
+        userService.findUserById(id);
+        return "redirect:/userFoundID";
     }
+
 
     @GetMapping(path = "/create_user")
     public String showRegistrationForm(Model model) {
@@ -61,8 +65,9 @@ public class UserController {
         return "done";
     }
     @RequestMapping(path = "deleteAll", method = {RequestMethod.GET, RequestMethod.POST})
-    public void removeAll() {
+    public String removeAll() {
         userService.removeAll();
+        return "home";
     }
 
     @ExceptionHandler(Exception.class)
