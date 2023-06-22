@@ -52,9 +52,13 @@ public class UserService {
     }
 
     public void createUser(String name, String email) {
-        User user = new User(name, email);
+        Random random = new Random();
+        final Long[] BALANCE  = {100L,200L,1234L,3121L,132421L,13223L,1917L,1870L,1871L,1959L};
+        final String[] REVIEW  = {"trusted", "so-so","not trusted"};
+        User user = new User(name, email, BALANCE[random.nextInt(BALANCE.length-1)], REVIEW[random.nextInt(REVIEW.length-1)]);
         userRepository.save(user);
     }
+
 
     public void userGenerator(){
         final String[] FIRST_NAMES = {
@@ -65,7 +69,7 @@ public class UserService {
         };
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
-            createUser(FIRST_NAMES[random.nextInt(FIRST_NAMES.length)], EMAILS[random.nextInt(FIRST_NAMES.length)]); ;
+            createUser(FIRST_NAMES[random.nextInt(FIRST_NAMES.length-1)], EMAILS[random.nextInt(FIRST_NAMES.length-1)]);
         }
     }
 }

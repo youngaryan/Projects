@@ -16,7 +16,21 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    private Long balance;
+
+    private String review;
+
+
     public User() {
+    }
+
+
+    public User(String name, String email, Long balance, String review) {
+        this.name = name;
+        this.email = email;
+        this.balance = balance;
+        this.review = review;
     }
 
     public User(String name, String email) {
@@ -52,6 +66,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public Long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
     }
 
     @Override

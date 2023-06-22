@@ -48,6 +48,17 @@ public class UserController {
         }
         return "table/userFoundID";
     }
+
+    @GetMapping("/userDetails/{userId}")
+    public String findUserFullDetails(@PathVariable("userId") Long userId, Model model) {
+        Optional<User> userOptional = userService.findUserById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            model.addAttribute("user", user);
+        }
+        return "table/userDetails";
+    }
+
     @GetMapping(path = "/findByName")
     public String ShowFindNameForm() {
         return "forms/filterByName";

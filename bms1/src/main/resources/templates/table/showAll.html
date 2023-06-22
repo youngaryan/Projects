@@ -13,6 +13,8 @@
 <a href="/deleteById">Delete user by id</a>
 <br>
 <a href="/deleteAll">Delete all users</a>
+<br>
+<a href="/generate">Generate User</a>
 
 
 <h1>All User</h1>
@@ -24,7 +26,11 @@
     </tr>
     <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
+        <td>
+            <a th:href="@{/userDetails/{userId}(userId=${user.id})}">
+                <span th:text="${user.name}"></span>
+            </a>
+        </td>
         <td th:text="${user.email}"></td>
     </tr>
 </table>
