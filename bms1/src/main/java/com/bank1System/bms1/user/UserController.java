@@ -94,6 +94,12 @@ public class UserController {
         return "generic/done";
     }
 
+    @GetMapping(path = "/generate")
+    public String generate(){
+        userService.userGenerator();
+        return "generic/done";
+    }
+
     @GetMapping(path = "done")
     public String done(){
         return "generic/done";

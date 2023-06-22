@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -53,5 +54,18 @@ public class UserService {
     public void createUser(String name, String email) {
         User user = new User(name, email);
         userRepository.save(user);
+    }
+
+    public void userGenerator(){
+        final String[] FIRST_NAMES = {
+                "John Smith", "Jane Johnson", "David Williams", "Emily Jones", "Michael Brown", "Olivia Davis"
+        };
+        final String[] EMAILS = {
+                "JohnSmith@gmail.com", "JaneJohnson@gmail.com", "DavidWilliams@gmail.com", "EmilyJones@gmail.com", "MichaelBrown@gmail.com", "Olivia Davis@gmail.com"
+        };
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            createUser(FIRST_NAMES[random.nextInt(FIRST_NAMES.length)], EMAILS[random.nextInt(FIRST_NAMES.length)]); ;
+        }
     }
 }
