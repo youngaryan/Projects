@@ -21,6 +21,21 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "forms/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("name") String name, @RequestParam("email") String email ){
+        User user = userService.findUserByName(name);
+        if (user!=null && user.getEmail().equals(email)){
+            return "/home";
+        }else {
+           return "forms/login";
+        }
+    }
+
     @GetMapping("/")
     public String home() {
         return "home";
