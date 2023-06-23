@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form th:action="@{/sendEmail}" method="post">
+    <label for="toEmail">To Email:</label>
+    <input type="text" th:value="${toEmail}" name="toEmail" id="toEmail">
+
+    <label for="subject">Subject:</label>
+    <input type="text" th:value="${subject}" name="subject" id="subject">
+
+    <label for="message">Message:</label>
+    <textarea name="message" id="message" th:text="${message}"></textarea>
+
+    <button type="submit">Send Email</button>
+</form>
+
+</body>
+</html>
