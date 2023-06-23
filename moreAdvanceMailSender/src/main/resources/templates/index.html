@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>user email</title>
+</head>
+<body>
+
+<form th:action="@{/sentEmail}" method="get">
+    <label for="email">To Email:</label>
+    <input type="text" th:value="${email}" name="email" id="email">
+    <button type="submit">Send Authentication.</button>
+</form>
+
+</body>
+</html>

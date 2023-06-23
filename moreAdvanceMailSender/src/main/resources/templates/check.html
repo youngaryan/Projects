@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Check Authentication</title>
+</head>
+<body>
+<h2>Check Authentication</h2>
+<form th:action="@{/checkCode}" method="post">
+  <label for="value">Enter the code:</label>
+  <input type="text" name="value" id="value">
+  <button type="submit">Verify</button>
+</form>
+<p th:text="${errorMessage}" style="color: red;"></p>
+</body>
+</html>
