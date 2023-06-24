@@ -1,6 +1,9 @@
 package com.bank1System.bms1.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.Random;
 
 @Service
 public class UserService {
+	
 
     private final UserRepository userRepository;
 
@@ -17,9 +21,23 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    private int currentPage = 0; // Initial page number
+    private int pageSize = 10; // Set the desired page size
+
     public List<User> listOfAllUser() {
-        return userRepository.findAll();
+        Pageable pageable = PageRequest.of(currentPage, pageSize);
+        Page<User> userPage = userRepository.findAll(pageable);
+        List<User> userList = userPage.getContent();
+        
+        // Increment the current page number
+        currentPage++;
+
+        return userList;
     }
+
+    public User findAll() {
+    	return (User) userRepository.findAll(); 
+    	}
     public void removeAll(){
         userRepository.deleteAll();
     }
