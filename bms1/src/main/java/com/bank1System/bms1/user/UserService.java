@@ -20,24 +20,25 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+//
+//    private int currentPage = 0; // Initial page number
+//    private int pageSize = 10; // Set the desired page size
 
-    private int currentPage = 0; // Initial page number
-    private int pageSize = 10; // Set the desired page size
+//    public List<User> listOfAllUser() {
+//        Pageable pageable = PageRequest.of(currentPage, pageSize);
+//        Page<User> userPage = userRepository.findAll(pageable);
+//        List<User> userList = userPage.getContent();
+//
+//        // Increment the current page number
+//        currentPage++;
+//
+//        return userList;
+//    }
 
-    public List<User> listOfAllUser() {
-        Pageable pageable = PageRequest.of(currentPage, pageSize);
-        Page<User> userPage = userRepository.findAll(pageable);
-        List<User> userList = userPage.getContent();
-        
-        // Increment the current page number
-        currentPage++;
-
-        return userList;
+    public List<User> listOfAllUser(){
+        return userRepository.findAll();
     }
 
-    public User findAll() {
-    	return (User) userRepository.findAll(); 
-    	}
     public void removeAll(){
         userRepository.deleteAll();
     }

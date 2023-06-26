@@ -1,7 +1,7 @@
 package com.bank1System.bms1.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,15 @@ import org.springframework.data.domain.Pageable;
 public class UserController {
 
     private final UserService userService;
+    
+//    private final UserRepository userRepository;
 
     @Autowired
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    
 
     @GetMapping("/login")
     public String showLoginForm() {
@@ -45,16 +48,7 @@ public class UserController {
 
     @GetMapping(path = "/show_all")
     public String showAll(@RequestParam(defaultValue = "0") int page, Model model) {
-        int pageSize = 10; // Set the desired page size
-
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<User> userPage = userService.findAll(pageable);
-        List<User> users = userPage.getContent();
-
-        model.addAttribute("users", users);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", userPage.getTotalPages());
-
+        userService.listOfAllUser();
         return "table/showAll";
     }
 
